@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Love Message</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    text-align: center;
+    color: white;
+    animation: fadeSlide 1.5s ease forwards;
+    opacity: 0;
+    width: 90%;
+    max-width: 500px;
+}
+
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.special-message {
+    font-size: 1.1rem;
+    min-height: 40px;
+    margin-bottom: 20px;
+    transition: 0.5s ease;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: #ff4e9b;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.hidden-message {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: 0.6s ease;
+}
+
+.hidden-message.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+input {
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    margin-top: 15px;
+    width: 80%;
+}
+
+.heart {
+    position: absolute;
+    color: rgba(255,255,255,0.8);
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-10vh) scale(1.3);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>You Are My Everything ❤️</h1>
+
+    <div class="special-message" id="specialMessage"></div>
+
+    <input type="text" id="nameInput" placeholder="Enter Your Name 💖">
+    <br>
+    <button id="submitBtn">Submit</button>
+
+    <div class="hidden-message" id="loveMessage"></div>
+</div>
+
+<script>
+const messages = [
+    "You are the reason behind my smile 😊",
+    "My world shines brighter because of you ✨",
+    "You are my favorite notification 💌",
+    "Life feels magical with you 💫",
+    "You are my forever and always ❤️"
+];
+
+const specialMessage = document.getElementById("specialMessage");
+const loveMessage = document.getElementById("loveMessage");
+const submitBtn = document.getElementById("submitBtn");
+const nameInput = document.getElementById("nameInput");
+
+let index = 0;
+
+function rotateMessages() {
+    specialMessage.style.opacity = 0;
+    setTimeout(() => {
+        specialMessage.textContent = messages[index];
+        specialMessage.style.opacity = 1;
+        index = (index + 1) % messages.length;
+    }, 300);
+}
+
+setInterval(rotateMessages, 3000);
+rotateMessages();
+
+function createHeart(xPosition = null) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = xPosition ? xPosition : Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7000);
+}
+
+function heartRain() {
+    for (let i = 0; i < 60; i++) {
+        setTimeout(() => {
+            createHeart();
+        }, i * 100);
+    }
+}
+
+submitBtn.addEventListener("click", () => {
+    const name = nameInput.value.trim();
+
+    if (!name) {
+        alert("Please enter your beautiful name 💖");
+        return;
+    }
+
+    loveMessage.innerHTML = `❤️ ${name}, you are the most special person in my life! ❤️`;
+    loveMessage.classList.add("show");
+
+    heartRain();
+});
+</script>
+
+</body>
+</html>
