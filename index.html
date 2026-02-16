@@ -3,193 +3,374 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Special Love Message</title>
+<title>Ultimate Love Proposal</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
+background-size:400% 400%;
+animation:gradientMove 15s ease infinite;
+position:relative;
 }
 
-body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-    background-size: 400% 400%;
-    animation: gradientMove 12s ease infinite;
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Intro */
+.intro{
+position:fixed;
+inset:0;
+background:black;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:10;
+transition:1.5s ease;
+}
+.intro.hidden{opacity:0;visibility:hidden;}
+.intro button{
+margin-top:25px;
+padding:12px 30px;
+border:none;
+border-radius:30px;
+background:#ff4e9b;
+color:white;
+cursor:pointer;
 }
 
-.container {
-    text-align: center;
-    color: white;
-    animation: fadeSlide 1.5s ease forwards;
-    opacity: 0;
-    width: 90%;
-    max-width: 500px;
+/* Main */
+.container{
+text-align:center;
+color:white;
+opacity:0;
+transform:scale(.9);
+transition:1.5s ease;
+z-index:2;
+}
+.container.show{opacity:1;transform:scale(1);}
+
+input{
+padding:12px;
+border-radius:30px;
+border:none;
+margin-top:20px;
+width:80%;
 }
 
-@keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4e9b;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px;
+transition:.4s ease;
+}
+button:hover{transform:scale(1.1);}
+
+/* Proposal */
+.proposal{margin-top:30px;display:none;}
+.proposal.show{display:block;}
+.proposal-buttons{margin-top:20px;position:relative;height:100px;}
+#noBtn{position:absolute;}
+
+/* Hearts */
+.heart{
+position:absolute;
+color:white;
+pointer-events:none;
+animation:floatUp linear forwards;
+}
+@keyframes floatUp{
+0%{transform:translateY(100vh) scale(.5);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-10vh) scale(1.6);opacity:0;}
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
+/* Confetti */
+.confetti{
+position:absolute;
+width:8px;
+height:8px;
+pointer-events:none;
+animation:fall 3s linear forwards;
+}
+@keyframes fall{
+to{transform:translateY(100vh) rotate(720deg);opacity:0;}
 }
 
-.special-message {
-    font-size: 1.1rem;
-    min-height: 40px;
-    margin-bottom: 20px;
-    transition: 0.5s ease;
+/* Ring */
+.ring{
+position:fixed;
+font-size:120px;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+animation:ringPop 1s ease forwards;
+z-index:6;
+}
+@keyframes ringPop{
+0%{transform:translate(-50%,-50%) scale(0) rotate(-180deg);}
+60%{transform:translate(-50%,-50%) scale(1.2);}
+100%{transform:translate(-50%,-50%) scale(1);}
 }
 
-button {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 30px;
-    background: white;
-    color: #ff4e9b;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s ease;
-    margin-top: 10px;
+/* Teddy Bear */
+.teddy{
+position:fixed;
+font-size:120px;
+bottom:50px;
+left:50%;
+transform:translateX(-50%);
+animation:teddyBounce 1s infinite alternate ease-in-out;
+z-index:7;
+}
+@keyframes teddyBounce{
+from{transform:translateX(-50%) translateY(0);}
+to{transform:translateX(-50%) translateY(-40px);}
 }
 
-button:hover {
-    transform: scale(1.1);
+/* Fireworks */
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+z-index:1;
 }
 
-.hidden-message {
-    margin-top: 20px;
-    font-size: 1.4rem;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: 0.6s ease;
+/* Stickers */
+.sticker{
+position:absolute;
+font-size:42px;
+pointer-events:none;
+animation:stickerFloat linear forwards;
+}
+@keyframes stickerFloat{
+0%{transform:translateY(100vh) scale(.6);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-10vh) scale(1.3);opacity:0;}
 }
 
-.hidden-message.show {
-    opacity: 1;
-    transform: scale(1);
+/* Footer */
+.footer{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:rgba(0,0,0,0.9);
+color:white;
+padding:14px 30px;
+border-radius:40px;
+font-size:14px;
+box-shadow:0 15px 40px rgba(0,0,0,0.7);
+z-index:5;
 }
+.footer strong{color:#ff4e9b;}
+.footer a{color:white;text-decoration:none;}
 
-input {
-    padding: 10px 15px;
-    border-radius: 25px;
-    border: none;
-    outline: none;
-    margin-top: 15px;
-    width: 80%;
-}
-
-.heart {
-    position: absolute;
-    color: rgba(255,255,255,0.8);
-    animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-    from {
-        transform: translateY(100vh) scale(0.5);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(-10vh) scale(1.3);
-        opacity: 0;
-    }
+.music-btn{
+position:fixed;
+top:20px;
+right:20px;
+width:45px;
+height:45px;
+border-radius:50%;
+border:none;
+cursor:pointer;
+background:white;
+z-index:3;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>You Are My Everything ❤️</h1>
+<canvas id="fireworks"></canvas>
 
-    <div class="special-message" id="specialMessage"></div>
-
-    <input type="text" id="nameInput" placeholder="Enter Your Name 💖">
-    <br>
-    <button id="submitBtn">Submit</button>
-
-    <div class="hidden-message" id="loveMessage"></div>
+<div class="intro" id="intro">
+<h1>✨ A Magical Surprise ✨</h1>
+<button onclick="startExperience()">Enter</button>
 </div>
 
+<div class="container" id="main">
+<h1>You Are My Forever ❤️</h1>
+<input type="text" id="nameInput" placeholder="Enter Your Name 💖">
+<br>
+<button onclick="handleSubmit()">Reveal Love</button>
+<div id="message" style="margin-top:20px;"></div>
+
+<div class="proposal" id="proposal">
+<h2>💍 Will You Be Mine Forever? 💍</h2>
+<div class="proposal-buttons">
+<button onclick="yesAnswer()">YES ❤️</button>
+<button id="noBtn">NO 😜</button>
+</div>
+</div>
+</div>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<div class="footer">
+✨ Website Developed by <strong>Tanmay Das</strong> ❤️ |
+📞 <a href="tel:9558536682">9558536682</a> |
+📧 <a href="mailto:tdas73541@gmail.com">tdas73541@gmail.com</a>
+</div>
+
+<audio id="bgMusic" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-const messages = [
-    "You are the reason behind my smile 😊",
-    "My world shines brighter because of you ✨",
-    "You are my favorite notification 💌",
-    "Life feels magical with you 💫",
-    "You are my forever and always ❤️"
-];
+const intro=document.getElementById("intro");
+const main=document.getElementById("main");
+const proposal=document.getElementById("proposal");
+const message=document.getElementById("message");
+const noBtn=document.getElementById("noBtn");
+const music=document.getElementById("bgMusic");
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-const specialMessage = document.getElementById("specialMessage");
-const loveMessage = document.getElementById("loveMessage");
-const submitBtn = document.getElementById("submitBtn");
-const nameInput = document.getElementById("nameInput");
+let particles=[];
 
-let index = 0;
-
-function rotateMessages() {
-    specialMessage.style.opacity = 0;
-    setTimeout(() => {
-        specialMessage.textContent = messages[index];
-        specialMessage.style.opacity = 1;
-        index = (index + 1) % messages.length;
-    }, 300);
+function startExperience(){
+intro.classList.add("hidden");
+setTimeout(()=>main.classList.add("show"),700);
+music.play();
+stickerRain();
 }
 
-setInterval(rotateMessages, 3000);
-rotateMessages();
-
-function createHeart(xPosition = null) {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤";
-    heart.style.left = xPosition ? xPosition : Math.random() * 100 + "vw";
-    heart.style.animationDuration = (3 + Math.random() * 4) + "s";
-    heart.style.fontSize = (15 + Math.random() * 25) + "px";
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 7000);
+function toggleMusic(){
+music.paused?music.play():music.pause();
 }
 
-function heartRain() {
-    for (let i = 0; i < 60; i++) {
-        setTimeout(() => {
-            createHeart();
-        }, i * 100);
-    }
+function handleSubmit(){
+const name=document.getElementById("nameInput").value.trim();
+if(!name){alert("Enter your name 💖");return;}
+message.innerHTML=`❤️ ${name}, I have one important question for you... ❤️`;
+proposal.classList.add("show");
+heartRain();
+confettiBlast();
 }
 
-submitBtn.addEventListener("click", () => {
-    const name = nameInput.value.trim();
-
-    if (!name) {
-        alert("Please enter your beautiful name 💖");
-        return;
-    }
-
-    loveMessage.innerHTML = `❤️ ${name}, you are the most special person in my life! ❤️`;
-    loveMessage.classList.add("show");
-
-    heartRain();
+noBtn.addEventListener("mouseover",()=>{
+const x=Math.random()*300-150;
+const y=Math.random()*150-75;
+noBtn.style.transform=`translate(${x}px,${y}px)`;
 });
+
+function yesAnswer(){
+message.innerHTML="You said YES! ❤️ Forever starts now!";
+heartRain();
+confettiBlast();
+showRing();
+launchFireworks();
+stickerRain();
+showTeddy();
+}
+
+function showRing(){
+const ring=document.createElement("div");
+ring.classList.add("ring");
+ring.innerHTML="💍";
+document.body.appendChild(ring);
+setTimeout(()=>ring.remove(),3000);
+}
+
+function showTeddy(){
+const teddy=document.createElement("div");
+teddy.classList.add("teddy");
+teddy.innerHTML="🧸";
+document.body.appendChild(teddy);
+setTimeout(()=>teddy.remove(),5000);
+}
+
+/* Hearts */
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*25)+"px";
+heart.style.animationDuration=(4+Math.random()*3)+"s";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+}
+function heartRain(){for(let i=0;i<70;i++){setTimeout(createHeart,i*100);}}
+
+/* Confetti */
+function confettiBlast(){
+for(let i=0;i<100;i++){
+const conf=document.createElement("div");
+conf.classList.add("confetti");
+conf.style.left=Math.random()*100+"vw";
+conf.style.background=`hsl(${Math.random()*360},100%,50%)`;
+conf.style.animationDuration=(2+Math.random()*2)+"s";
+document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),3000);
+}
+}
+
+/* Fireworks */
+function launchFireworks(){
+for(let i=0;i<100;i++){
+particles.push({
+x:canvas.width/2,
+y:canvas.height/2,
+angle:Math.random()*2*Math.PI,
+speed:Math.random()*5+2,
+life:100,
+color:`hsl(${Math.random()*360},100%,50%)`
+});
+}
+animateFireworks();
+}
+function animateFireworks(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles.forEach((p,i)=>{
+p.x+=Math.cos(p.angle)*p.speed;
+p.y+=Math.sin(p.angle)*p.speed;
+p.life--;
+ctx.fillStyle=p.color;
+ctx.fillRect(p.x,p.y,3,3);
+if(p.life<=0)particles.splice(i,1);
+});
+if(particles.length>0)requestAnimationFrame(animateFireworks);
+}
+
+/* Stickers */
+function stickerRain(){
+const stickers=["💑","👩‍❤️‍👨","💏","💕"];
+for(let i=0;i<40;i++){
+setTimeout(()=>{
+const s=document.createElement("div");
+s.classList.add("sticker");
+s.innerHTML=stickers[Math.floor(Math.random()*stickers.length)];
+s.style.left=Math.random()*100+"vw";
+s.style.animationDuration=(4+Math.random()*3)+"s";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),7000);
+},i*200);
+}
+}
 </script>
 
 </body>
